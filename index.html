@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaVerse - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1><a href="index.html" style="color: inherit; text-decoration: none;">📚 MangaVerse</a></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="chapters.html?manga=demon-slayer" class="nav-link">Chapters</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="novels.html" class="nav-link">Novels</a>
+                <a href="#" class="nav-link">Genres</a>
+                <a href="login.html" class="nav-link login-btn">Login</a>
+                <a href="register.html" class="nav-link register-btn">Register</a>
+            </nav>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <!-- Featured manga section -->
+            <section class="featured-section">
+                <div class="featured-manga">
+                    <div class="manga-cover">
+                        <img src="photos/DS.jpg" alt="Demon Slayer" class="cover-image">
+                        <div class="manga-info">
+                            <h2>Demon Slayer: Kimetsu no Yaiba</h2>
+                            <p class="manga-description">
+                                Follow Tanjiro Kamado as he becomes a demon slayer to save his sister and avenge his family. 
+                                This epic tale of courage, friendship, and determination will keep you on the edge of your seat.
+                            </p>
+                            <div class="manga-stats">
+                                <span class="stat">⭐ 9.5/10</span>
+                                <span class="stat">📖 23 Volumes</span>
+                                <span class="stat">🔥 Trending</span>
+                                <span class="stat">📅 2016-2020</span>
+                            </div>
+                            <div class="manga-actions">
+                                <button class="action-btn primary" onclick="startReading()">
+                                    <i class="fas fa-play"></i> Start Reading
+                                </button>
+                                <button class="action-btn secondary" onclick="viewChapters()">
+                                    <i class="fas fa-list"></i> View Chapters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Preview Section -->
+            <section class="preview-section">
+                <div class="preview-header">
+                    <h3>Quick Preview</h3>
+                    <p>Get a taste of the action with these sample pages</p>
+                </div>
+                <div class="preview-pages">
+                    <div class="preview-page">
+                        <img src="photos/ds1.jpg" alt="Demon Slayer Preview" class="preview-img">
+                        <div class="preview-text">
+                            <p>"I'll become the strongest demon slayer!"</p>
+                        </div>
+                    </div>
+                    <div class="preview-page">
+                        <img src="photos/ds3.jpeg" alt="Demon Slayer Action" class="preview-img">
+                        <div class="preview-text">
+                            <p>Epic battles await!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-actions">
+                    <button class="preview-btn" onclick="startReading()">
+                        <i class="fas fa-book-open"></i> Start Reading Volume 1
+                    </button>
+                </div>
+            </section>
+
+            <!-- Novels section -->
+            <section class="novel-section" id="novels">
+                <div class="section-header">
+                    <div>
+                        <h3>Featured Novels</h3>
+                        <p>Jump into light novels and bonus reads straight from our library</p>
+                    </div>
+                    <div class="novel-section-cta">
+                        <span class="section-label">New</span>
+                        <a class="novel-btn outline" href="novels.html">
+                            <i class="fas fa-book"></i> Browse full library
+                        </a>
+                    </div>
+                </div>
+
+                <div class="novel-grid" data-novel-grid data-novel-limit="6"></div>
+            </section>
+
+            <!-- Popular manga grid -->
+            <section class="popular-section">
+                <h3>Popular This Week</h3>
+                <div class="manga-grid">
+                    <div class="manga-card" onclick="viewManga('attack-on-titan')">
+                        <img src="photos/ATO.jpg" alt="Attack on Titan" class="card-cover">
+                        <h4>Attack on Titan</h4>
+                        <p>Action, Drama</p>
+                        <div class="card-rating">⭐ 9.2/10</div>
+                    </div>
+                    <div class="manga-card" onclick="viewManga('demon-slayer')">
+                        <img src="photos/DS.jpg" alt="Demon Slayer" class="card-cover">
+                        <h4>Demon Slayer</h4>
+                        <p>Dark Fantasy</p>
+                        <div class="card-rating">⭐ 9.5/10</div>
+                    </div>
+                    <div class="manga-card" onclick="viewManga('one-piece')">
+                        <img src="photos/onepiece.jpg" alt="One Piece" class="card-cover">
+                        <h4>One Piece</h4>
+                        <p>Adventure, Comedy</p>
+                        <div class="card-rating">⭐ 9.3/10</div>
+                    </div>
+                    <div class="manga-card" onclick="viewManga('naruto')">
+                        <img src="photos/naruto.jpg" alt="Naruto" class="card-cover">
+                        <h4>Naruto</h4>
+                        <p>Ninja, Adventure</p>
+                        <div class="card-rating">⭐ 9.1/10</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Floating elements for anime effect -->
+        <div class="floating-elements">
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+        </div>
+    </div>
+
+    <script src="novels.js" defer></script>
+    <script src="app.js"></script>
+    <script>
+        // Home page specific functions
+        function startReading() {
+            // Check if user is logged in
+            const userData = localStorage.getItem('mangaVerseUser');
+            if (!userData) {
+                if (confirm('Please login to start reading. Would you like to login now?')) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+            
+            // Navigate to reader with Volume 1
+            window.location.href = 'reader.html?chapter=1&page=1';
+        }
+
+        function viewChapters() {
+            window.location.href = 'chapters.html?manga=demon-slayer';
+        }
+
+        function viewManga(mangaId) {
+            const supported = ['demon-slayer', 'attack-on-titan'];
+            if (supported.includes(mangaId)) {
+                window.location.href = `chapters.html?manga=${mangaId}`;
+                return;
+            }
+            alert(`${mangaId} is coming soon!`);
+        }
+
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('mangaVerseUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('userName').textContent = user.username;
+                document.getElementById('userInfo').style.display = 'flex';
+                
+                // Hide login/register buttons
+                document.querySelectorAll('.login-btn, .register-btn').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+            }
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('mangaVerseUser');
+                window.location.reload();
+            });
+        });
+    </script>
+</body>
+</html>
+

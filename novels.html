@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novels Library - MangaVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1><a href="index.html" style="color: inherit; text-decoration: none;">📚 MangaVerse</a></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chapters.html?manga=demon-slayer" class="nav-link">Chapters</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="novels.html" class="nav-link active">Novels</a>
+                <a href="#" class="nav-link">Genres</a>
+                <a href="login.html" class="nav-link login-btn">Login</a>
+                <a href="register.html" class="nav-link register-btn">Register</a>
+            </nav>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Hero -->
+            <section class="novel-hero">
+                <div class="novel-hero-content">
+                    <p class="eyebrow">Digital Light Novel Shelf</p>
+                    <h2>Download-ready novels, straight from our vault.</h2>
+                    <p>Every PDF you see here lives in the `novels` folder, curated for quick reading or offline adventures. Preview inside MangaVerse or download the file instantly.</p>
+                    <div class="novel-hero-actions">
+                        <a class="novel-btn primary" href="novels/It-Starts-with-Us.pdf" target="_blank" rel="noopener">
+                            <i class="fas fa-book-open"></i> Read featured PDF
+                        </a>
+                        <a class="novel-btn secondary" href="#novel-library">
+                            <i class="fas fa-layer-group"></i> Browse collection
+                        </a>
+                    </div>
+                </div>
+                <div class="novel-hero-card">
+                    <span class="novel-format">Now reading</span>
+                    <h3>It Starts with Us</h3>
+                    <p>Colleen Hoover’s emotional sequel about choosing love on your own terms.</p>
+                    <div class="novel-tags">
+                        <span class="tag">Romance</span>
+                        <span class="tag">Drama</span>
+                    </div>
+                    <div class="novel-actions">
+                        <a class="novel-btn primary" href="novels/It-Starts-with-Us.pdf" target="_blank" rel="noopener">Read PDF</a>
+                        <a class="novel-btn secondary" href="novels/It-Starts-with-Us.pdf" download>Download</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick stats -->
+            <section class="novel-stats">
+                <article class="novel-stat-card">
+                    <span class="stat-label">Formats</span>
+                    <strong data-novel-count>Loading…</strong>
+                    <p>Direct pull from `novels/` folder.</p>
+                </article>
+                <article class="novel-stat-card">
+                    <span class="stat-label">Genres</span>
+                    <strong data-novel-genres>Loading…</strong>
+                    <p>Hand-picked for variety.</p>
+                </article>
+                <article class="novel-stat-card">
+                    <span class="stat-label">Availability</span>
+                    <strong>Read & Download</strong>
+                    <p>Open instantly or keep offline.</p>
+                </article>
+            </section>
+
+            <!-- Library -->
+            <section class="novel-section novel-library" id="novel-library">
+                <div class="section-header">
+                    <div>
+                        <h3>Novel Library</h3>
+                        <p>Everything currently stocked in the `novels` directory.</p>
+                    </div>
+                    <div class="novel-filter">
+                        <button class="filter-btn active" type="button" data-novel-filter="all">All</button>
+                        <button class="filter-btn" type="button" data-novel-filter="romance">Romance</button>
+                        <button class="filter-btn" type="button" data-novel-filter="fantasy">Fantasy</button>
+                        <button class="filter-btn" type="button" data-novel-filter="horror">Horror</button>
+                    </div>
+                </div>
+
+                <div class="novel-grid" data-novel-grid></div>
+            </section>
+        </main>
+
+        <div class="floating-elements">
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+        </div>
+    </div>
+
+    <script src="novels.js" defer></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+

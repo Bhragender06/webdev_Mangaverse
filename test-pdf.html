@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Test - MangaVerse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <h1>PDF Loading Test</h1>
+    <div id="test-results"></div>
+    <canvas id="test-canvas" width="800" height="600" style="border: 1px solid #ccc;"></canvas>
+    
+    <script>
+        async function testPDFLoading() {
+            const resultsDiv = document.getElementById('test-results');
+            const canvas = document.getElementById('test-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            try {
+                // Test loading Volume 1
+                const pdfPath = 'Demon Slayer/Demon Slayer [Volume 01].pdf';
+                resultsDiv.innerHTML = `<p>Testing PDF path: ${pdfPath}</p>`;
+                
+                const loadingTask = pdfjsLib.getDocument({
+                    url: pdfPath,
+                    cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+                    cMapPacked: true,
+                });
+                
+                const pdf = await loadingTask.promise;
+                resultsDiv.innerHTML += `<p>✅ PDF loaded successfully! Total pages: ${pdf.numPages}</p>`;
+                
+                // Try to render first page
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 1.0 });
+                
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                
+                await page.render(renderContext).promise;
+                resultsDiv.innerHTML += `<p>✅ First page rendered successfully!</p>`;
+                
+            } catch (error) {
+                resultsDiv.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+                console.error('PDF loading error:', error);
+            }
+        }
+        
+        // Run test when page loads
+        document.addEventListener('DOMContentLoaded', testPDFLoading);
+    </script>
+</body>
+</html>

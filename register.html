@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join MangaVerse - Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with anime theme -->
+        <header class="header">
+            <div class="logo">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">📚 MangaVerse</a></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chapters.html?manga=demon-slayer" class="nav-link">Chapters</a>
+                <a href="novels.html" class="nav-link">Novels</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="admin.html" class="nav-link">Admin</a>
+            </nav>
+        </header>
+
+        <!-- Registration Form Section -->
+        <main class="main-content">
+            <section class="registration-section">
+                <div class="registration-container">
+                    <div class="registration-header">
+                        <h2>Join the MangaVerse Community</h2>
+                        <p>Start your anime and manga journey with us</p>
+                    </div>
+
+                    <form class="registration-form" id="registrationForm">
+                        <div class="form-group">
+                            <label for="username">
+                                <i class="fas fa-user"></i>
+                                Username
+                            </label>
+                            <input type="text" id="username" name="username" required>
+                            <span class="error-message" id="usernameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <input type="password" id="password" name="password" required>
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar"></div>
+                                <span class="strength-text">Password Strength</span>
+                            </div>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">
+                                <i class="fas fa-phone"></i>
+                                Phone Number
+                            </label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">
+                                <i class="fas fa-venus-mars"></i>
+                                Gender
+                            </label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                            <span class="error-message" id="genderError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                <i class="fas fa-lock"></i>
+                                Confirm Password
+                            </label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <span class="error-message" id="confirmPasswordError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fullName">
+                                <i class="fas fa-id-card"></i>
+                                Full Name
+                            </label>
+                            <input type="text" id="fullName" name="fullName" required>
+                            <span class="error-message" id="fullNameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate">
+                                <i class="fas fa-calendar"></i>
+                                Date of Birth
+                            </label>
+                            <input type="date" id="birthDate" name="birthDate" required>
+                            <span class="error-message" id="birthDateError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="favoriteGenres">
+                                <i class="fas fa-heart"></i>
+                                Favorite Genres
+                            </label>
+                            <div class="genre-selection">
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="action">
+                                    <span>Action</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="romance">
+                                    <span>Romance</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="comedy">
+                                    <span>Comedy</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="drama">
+                                    <span>Drama</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="fantasy">
+                                    <span>Fantasy</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="horror">
+                                    <span>Horror</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="mystery">
+                                    <span>Mystery</span>
+                                </label>
+                                <label class="genre-checkbox">
+                                    <input type="checkbox" name="genres" value="sci-fi">
+                                    <span>Sci-Fi</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="readingLevel">
+                                <i class="fas fa-star"></i>
+                                Reading Level
+                            </label>
+                            <select id="readingLevel" name="readingLevel" required>
+                                <option value="">Select your reading level</option>
+                                <option value="beginner">Beginner (New to manga)</option>
+                                <option value="intermediate">Intermediate (Read some manga)</option>
+                                <option value="advanced">Advanced (Manga enthusiast)</option>
+                                <option value="expert">Expert (Manga connoisseur)</option>
+                            </select>
+                            <span class="error-message" id="readingLevelError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="terms-checkbox">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span>I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a></span>
+                            </label>
+                            <span class="error-message" id="termsError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="newsletter-checkbox">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span>Subscribe to our newsletter for updates and recommendations</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="register-btn" id="registerBtn">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+
+                        <div class="login-link">
+                            <p>Already have an account? <a href="login.html" class="login-link-text">Sign in here</a></p>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- Floating elements for anime effect -->
+        <div class="floating-elements">
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>

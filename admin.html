@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Records - MangaVerse Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1><a href="index.html" style="color: inherit; text-decoration: none;">📚 MangaVerse Admin</a></h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chapters.html?manga=demon-slayer" class="nav-link">Chapters</a>
+                <a href="novels.html" class="nav-link">Novels</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="admin.html" class="nav-link active">User Records</a>
+                <a href="login.html" class="nav-link login-btn">Login</a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main class="main-content">
+            <section class="admin-section">
+                <div class="admin-header">
+                    <h2>Registered Users</h2>
+                    <p>View all user registration records</p>
+                    <button class="refresh-btn" onclick="loadUserRecords()">
+                        <i class="fas fa-refresh"></i> Refresh
+                    </button>
+                </div>
+
+                <div class="user-records-container">
+                    <div class="records-summary">
+                        <div class="summary-card">
+                            <i class="fas fa-users"></i>
+                            <span class="summary-number" id="totalUsers">0</span>
+                            <span class="summary-label">Total Users</span>
+                        </div>
+                        <div class="summary-card">
+                            <i class="fas fa-calendar"></i>
+                            <span class="summary-number" id="todayRegistrations">0</span>
+                            <span class="summary-label">Today's Registrations</span>
+                        </div>
+                    </div>
+
+                    <div class="user-table-container">
+                        <table class="user-table" id="userTable">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Registration Date</th>
+                                    <th>Registration Time</th>
+                                    <th>Password</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <!-- User records will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="no-users" id="noUsers" style="display: none;">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>No users registered yet</h3>
+                        <p>Users will appear here once they register</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Floating elements -->
+        <div class="floating-elements">
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+            <div class="floating-sakura">🌸</div>
+        </div>
+    </div>
+
+    <script>
+        // Load user records when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserRecords();
+        });
+
+        function loadUserRecords() {
+            try {
+                const users = JSON.parse(localStorage.getItem('mangaVerseUsers') || '[]');
+                displayUserRecords(users);
+                updateSummary(users);
+            } catch (error) {
+                console.error('Error loading user records:', error);
+                showError('Failed to load user records');
+            }
+        }
+
+        function displayUserRecords(users) {
+            const tableBody = document.getElementById('userTableBody');
+            const noUsersDiv = document.getElementById('noUsers');
+            const tableContainer = document.querySelector('.user-table-container');
+
+            if (users.length === 0) {
+                tableContainer.style.display = 'none';
+                noUsersDiv.style.display = 'block';
+                return;
+            }
+
+            tableContainer.style.display = 'block';
+            noUsersDiv.style.display = 'none';
+
+            tableBody.innerHTML = '';
+
+            users.forEach((user, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.registrationDate}</td>
+                    <td>${user.registrationTime}</td>
+                    <td class="password-cell">
+                        <span class="password-text" id="password-${index}">••••••••</span>
+                        <button class="toggle-password-btn" onclick="togglePassword(${index})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <span class="actual-password" id="actual-password-${index}" style="display: none;">${user.password}</span>
+                    </td>
+                    <td>
+                        <button class="action-btn delete-btn" onclick="deleteUser('${user.username}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updateSummary(users) {
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            const today = new Date().toLocaleDateString();
+            const todayRegistrations = users.filter(user => user.registrationDate === today).length;
+            document.getElementById('todayRegistrations').textContent = todayRegistrations;
+        }
+
+        function togglePassword(index) {
+            const passwordText = document.getElementById(`password-${index}`);
+            const actualPassword = document.getElementById(`actual-password-${index}`);
+            const toggleBtn = document.querySelector(`[onclick="togglePassword(${index})"] i`);
+
+            if (passwordText.style.display !== 'none') {
+                passwordText.style.display = 'none';
+                actualPassword.style.display = 'inline';
+                toggleBtn.className = 'fas fa-eye-slash';
+            } else {
+                passwordText.style.display = 'inline';
+                actualPassword.style.display = 'none';
+                toggleBtn.className = 'fas fa-eye';
+            }
+        }
+
+        function deleteUser(username) {
+            if (confirm(`Are you sure you want to delete user "${username}"?`)) {
+                try {
+                    const users = JSON.parse(localStorage.getItem('mangaVerseUsers') || '[]');
+                    const updatedUsers = users.filter(user => user.username !== username);
+                    localStorage.setItem('mangaVerseUsers', JSON.stringify(updatedUsers));
+                    
+                    loadUserRecords();
+                    showSuccess(`User "${username}" deleted successfully`);
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                    showError('Failed to delete user');
+                }
+            }
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(successDiv);
+            setTimeout(() => successDiv.remove(), 3000);
+        }
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #ef4444;
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 3000);
+        }
+    </script>
+
+    <style>
+        .admin-section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px #c7d2fe55;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .admin-header h2 {
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .admin-header p {
+            color: #6366f1;
+            margin: 4px 0 0 0;
+        }
+
+        .refresh-btn {
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #4338ca;
+        }
+
+        .records-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e0e7ff;
+        }
+
+        .summary-card i {
+            font-size: 2rem;
+            color: #6366f1;
+            margin-bottom: 8px;
+        }
+
+        .summary-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .summary-label {
+            color: #6366f1;
+            font-size: 0.9rem;
+        }
+
+        .user-table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 2px solid #e0e7ff;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        .user-table th {
+            background: #6366f1;
+            color: #fff;
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .user-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e7ff;
+        }
+
+        .user-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .password-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .password-text {
+            font-family: monospace;
+            color: #6366f1;
+        }
+
+        .toggle-password-btn {
+            background: #f1f5f9;
+            border: 1px solid #e0e7ff;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            color: #6366f1;
+            transition: all 0.2s;
+        }
+
+        .toggle-password-btn:hover {
+            background: #e0e7ff;
+        }
+
+        .action-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #dc2626;
+        }
+
+        .no-users {
+            text-align: center;
+            padding: 40px;
+            color: #6366f1;
+        }
+
+        .no-users i {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-users h3 {
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+</html>
+
